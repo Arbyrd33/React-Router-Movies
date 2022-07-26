@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import {
-  useRouteMatch
-} from 'react-router-dom';
 import axios from 'axios';
 
+
+import {useParams} from 'react-router-dom';
+
 export default function Movie(props) {
-  console.log(props.movies[0].id);
   const [movie, setMovie] = useState();
-const {url, path} = useRouteMatch();
-console.log(url, path);
-  let id = parseInt(path);
+
+  const {id} = useParams();
   // Change ^^^ that line and use a hook to obtain the :id parameter from the URL
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5001/api/movies/data`) // Study this endpoint with Postman
+      .get(`http://localhost:5001/api/movies/${id}`) // Study this endpoint with Postman
       .then(response => {
-        console.log("ressss", response)
-        // Study this response with a breakpoint or log statements
-        // and set the response data as the 'movie' slice of state
+        console.log(response.data);
+        setMovie(response.data);
       })
       .catch(error => {
         console.error(error);
       });
     // This effect should run every time time
     // the `id` changes... How could we do this?
-  }, [id]);
+  }, []);
 
   // Uncomment this only when you have moved on to the stretch goals
   // const saveMovie = evt => { }
