@@ -1,31 +1,31 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
+
 export default function MovieList(props) {
   // console.log("props", props);
   // console.log( "props.movies", props.movies );
   // console.log("This is a test");
-  const movies = props.movies;
   // console.log("MovieList movies:  ", movies);
-  
-
 
   return (
     <div className="movie-list">
-      {movies.map(movie => (
+      {props.movies.map(movie => (
         <MovieDetails key={movie.id} movie={movie} />
         ))}
     </div>
   );
 }
 
+
 function MovieDetails(props) {
   const { title, director, metascore} = props.movie;
+
 
   const history = useHistory();
   
   const routeToMovie = () => {
     // console.log("History is... ", history);
-    history.push(`/movies/:${props.movie.id}`)
+    history.push(`/movies/${props.movie.id}`)
   }
 
 
